@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/quiz-maestro/static/css/main.f1bb7924.css",
+    "main.js": "/quiz-maestro/static/js/main.c5134442.js",
+    "index.html": "/quiz-maestro/index.html",
+    "main.f1bb7924.css.map": "/quiz-maestro/static/css/main.f1bb7924.css.map",
+    "main.c5134442.js.map": "/quiz-maestro/static/js/main.c5134442.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.f1bb7924.css",
+    "static/js/main.c5134442.js"
+  ]
+}
