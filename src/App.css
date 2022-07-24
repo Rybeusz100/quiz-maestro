@@ -1,0 +1,50 @@
+body {
+    background-color: dimgray;
+}
+
+.quizzes-holder {
+    margin-left: auto;
+    margin-right: auto;
+    width: 630px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px 10px;
+}
+
+.quiz-card {
+    background-color: white;
+    width: 200px;
+    height: 150px;
+    border-radius: 25px;
+}
+
+.quiz-box h3 {
+    margin: 10px 10px 10px 10px;
+}
+
+.quiz-container {
+    background-color: white;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 25px;
+    width: 30%;
+    margin-top: 30px;
+}
+
+.quiz-container h2 {
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.correct-answer {
+    background-color: green;
+}
+
+.incorrect-answer {
+    background-color: red;
+}
+
+.incomplete-answer {
+    background-color: yellow;
+}
