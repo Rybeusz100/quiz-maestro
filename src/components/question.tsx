@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import { IQuestionProps } from "../lib/interfaces";
 
 function Question(props: IQuestionProps) {
-  const [checkedAnswers, setCheckedAnswers] = useState(Array(props.question.answers.length).fill(false));
+  const [checkedAnswers, setCheckedAnswers] = useState(
+      props.checkedAnswers === undefined ? Array(props.question.answers.length).fill(false) : props.checkedAnswers);
 
   function HandleCheckbox(answerIndex: number) {
     if (props.reviewMode) { return false; }
@@ -20,7 +21,7 @@ function Question(props: IQuestionProps) {
     <>
       <h3>{props.question.questionText}</h3>
       {props.question.answers.map((answer, index) => {
-        const id = 'answer' + index.toString()
+        const id = 'q' + props.questionIndex.toString() + 'answer' + index.toString();
         let colorClass = '';
         if (props.reviewMode) {
           const answer = props.checkedAnswers?.[index];
@@ -37,8 +38,8 @@ function Question(props: IQuestionProps) {
         return (
           <p key={index} className={colorClass}>
             <input type='checkbox' id={id} onChange={() => HandleCheckbox(index)} 
-              checked={props.reviewMode ? props.checkedAnswers?.[index] : checkedAnswers[index]} />
-            <label htmlFor={id}>{props.question.answers[index]}</label>
+              checked={checkedAnswers[index]} />
+            <label htmlFor={id}>{answer}</label>
           </p>
         )
       })}

@@ -6,7 +6,8 @@ function QuizCard(props: IQuizCardProps) {
       <h3>{props.quiz.title}</h3>
       <span>Questions: {props.quiz.questions.length}</span>
       <button onClick={() => props.StartQuiz(props.quiz.id)}>Start quiz</button>
-      <button>Edit</button>
+      <button onClick={() => props.EditQuiz(props.quiz.id)}>Edit</button>
+      <button>Export</button>
       <button>Delete</button>
     </div>
   )

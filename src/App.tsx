@@ -1,30 +1,39 @@
 import { useState } from 'react';
 import MainMenu from './components/mainMenu';
-import { quiz1, quiz2 } from './quizy-test';
-import { Mode } from './lib/enums';
+import { Mode, QuizMode } from './lib/enums';
 import Quiz from './components/quiz';
-import { GetRandomizedQuiz } from './lib/utils';
+import { FindQuizWithId, GetRandomizedQuiz } from './lib/utils';
+import { IQuiz } from './lib/interfaces';
 
 function App() {
-  const [quizzes] = useState(JSON.parse(localStorage.getItem('quizzes') || '{}'));
+  const [quizzes, setQuizzes] = useState(JSON.parse(localStorage.getItem('quizzes') || '{}'));
   const [mode, setMode] = useState(Mode.MainMenu);
   const [activeQuizId, setActiveQuizId] = useState(-1);
 
-  localStorage.setItem('quizzes', JSON.stringify([quiz1, quiz2]));
-
   function StartQuiz(id: number) {
     setActiveQuizId(id);
-    setMode(Mode.Quiz);
+    setMode(Mode.SolveQuiz);
+  }
+
+  function EditQuiz(id: number) {
+    setActiveQuizId(id);
+    setMode(Mode.EditQuiz);
   }
 
   function GoToMenu() {
     setMode(Mode.MainMenu);
   }
 
+  function UpdateQuizzes(newQuizzes: IQuiz[]) {
+    setQuizzes(newQuizzes);
+    localStorage.setItem('quizzes', JSON.stringify(newQuizzes));
+  }
+
   return (
     <>
-      {mode === Mode.MainMenu && <MainMenu quizzes={quizzes} StartQuiz={StartQuiz}/>}
-      {mode === Mode.Quiz && <Quiz quiz={GetRandomizedQuiz(quizzes, activeQuizId)} GoToMenu={GoToMenu} />}
+      {mode === Mode.MainMenu && <MainMenu quizzes={quizzes} StartQuiz={StartQuiz} EditQuiz={EditQuiz} UpdateQuizzes={UpdateQuizzes} />}
+      {mode === Mode.SolveQuiz && <Quiz quiz={GetRandomizedQuiz(quizzes, activeQuizId)} mode={QuizMode.Solve} GoToMenu={GoToMenu} UpdateQuizzes={UpdateQuizzes} />}
+      {mode === Mode.EditQuiz && <Quiz quiz={FindQuizWithId(quizzes, activeQuizId)} mode={QuizMode.Edit} GoToMenu={GoToMenu} UpdateQuizzes={UpdateQuizzes} />}
     </>
   );
 }

@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { IQuizProps } from "../lib/interfaces";
 import Question from "./question";
+import { QuizMode } from "../lib/enums";
+import { AddQuiz } from "../lib/utils";
 
 function Quiz(props: IQuizProps) {
-  const [isFinished, setIsFinished] = useState(false);
-  const [reviewMode, setReviewMode] = useState(false);
+  const [mode, setMode] = useState(props.mode);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState([] as boolean[][]);
   const [score, setScore] = useState([] as number[]);
@@ -16,7 +17,7 @@ function Quiz(props: IQuizProps) {
     }
     else {
       setTotalScore(score.reduce((sum, val) => sum + val, 0));
-      setIsFinished(true);
+      setMode(QuizMode.Summary);
     }
   }
 
@@ -30,10 +31,17 @@ function Quiz(props: IQuizProps) {
     }
     setAnswers(newAnswers);
 
+    if (mode === QuizMode.Solve) {
+      UpdateScore(questionIndex, checkedAnswers);
+    }
+  }
+
+  function UpdateScore(questionIndex: number, checkedAnswers: boolean[]) {
     // with n correct answers you get 1/n points for each correct and lose 1/n for each incorrect, can't get less than 0
     let questionScore = 0;
     const isCorrect = props.quiz.questions[questionIndex].isCorrect;
-    const pointsForAns = 1 / isCorrect.filter(value => value).length;
+    let pointsForAns = 1 / isCorrect.filter(value => value).length;
+    pointsForAns = isFinite(pointsForAns) ? pointsForAns : 0;
     checkedAnswers.forEach((isChecked, index) => {
       if (isChecked && isCorrect[index]) {
         questionScore += pointsForAns;
@@ -44,7 +52,7 @@ function Quiz(props: IQuizProps) {
     });
 
     questionScore = Math.max(questionScore, 0);
-    
+
     let newScore = score;
     if (score.length === questionIndex) {
       newScore.push(questionScore);
@@ -55,17 +63,27 @@ function Quiz(props: IQuizProps) {
     setScore(newScore);
   }
 
+  function UpdateQuiz() {
+    let modifiedQuiz = props.quiz;
+    answers.forEach((ans, index) => {
+      modifiedQuiz.questions[index].isCorrect = ans;
+    });
+
+    let newQuizzes = AddQuiz(modifiedQuiz);
+    props.UpdateQuizzes(newQuizzes);
+  }
+
   function ReviewAnswers() {
-    setReviewMode(true);
+    setMode(QuizMode.Review);
   }
 
   function BackToResults() {
-    setReviewMode(false);
+    setMode(QuizMode.Summary);
   }
 
   return (
     <>
-      {!isFinished && 
+      {mode === QuizMode.Solve && 
       <>
         <div className='quiz-container'>
           <h2>{props.quiz.title}</h2>
@@ -76,16 +94,16 @@ function Quiz(props: IQuizProps) {
         </div>
         <button onClick={props.GoToMenu}>Main Menu</button>
       </>}
-      {isFinished && !reviewMode && 
+      {mode === QuizMode.Summary && 
       <>
         <div className='result-container'>
           <h2>Score:</h2>
-          <h3>{totalScore} / {props.quiz.questions.length} - {(totalScore / props.quiz.questions.length * 100).toFixed(2)}%</h3>
+          <h3>{totalScore.toFixed(2)} / {props.quiz.questions.length} - {(totalScore / props.quiz.questions.length * 100).toFixed(2)}%</h3>
           <button onClick={props.GoToMenu}>Main Menu</button>
           <button onClick={ReviewAnswers}>Review answers</button>
         </div>
       </>}
-      {isFinished && reviewMode && 
+      {mode === QuizMode.Review && 
       <>
         {props.quiz.questions.map((question, index) => {
           return (
@@ -99,6 +117,20 @@ function Quiz(props: IQuizProps) {
         })}
         <button onClick={props.GoToMenu}>Main Menu</button>
         <button onClick={BackToResults}>Back to results</button>
+      </>}
+      {mode === QuizMode.Edit &&
+      <>
+        {props.quiz.questions.map((question, index) => {
+          return (
+              <div className='quiz-container' key={index}>
+                <h5>Question {index + 1} of {props.quiz.questions.length}</h5>
+                <Question question={question} questionIndex={index} reviewMode={false} 
+                  UpdateAnswers={UpdateAnswers} checkedAnswers={question.isCorrect} key={index} />
+              </div>
+          )
+        })}
+        <button onClick={props.GoToMenu}>Main Menu</button>
+        <button onClick={UpdateQuiz}>Save</button>
       </>}
     </>
   )
