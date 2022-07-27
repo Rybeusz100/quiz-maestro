@@ -41,3 +41,26 @@ export function GetRandomizedQuiz(quizzes: IQuiz[], id: number) {
 
   return randomizedQuiz;
 }
+
+export function AddQuiz(quiz: IQuiz) {
+  let quizzes: IQuiz[] = JSON.parse(localStorage.getItem('quizzes') || '{}');
+
+  let index = -1;
+  if (quizzes.findIndex) {
+    index = quizzes.findIndex(q => q.id === quiz.id);
+  }
+
+  if (index >= 0) {
+    quizzes[index] = quiz;
+  }
+  else {
+    if (quizzes.push) {
+      quizzes.push(quiz);
+    }
+    else {
+      quizzes = [quiz];
+    }
+  }
+
+  return quizzes;
+}

@@ -1,4 +1,12 @@
 export enum Mode {
     MainMenu,
-    Quiz
+    SolveQuiz,
+    EditQuiz
+}
+
+export enum QuizMode {
+    Solve,
+    Summary,
+    Review,
+    Edit
 }
