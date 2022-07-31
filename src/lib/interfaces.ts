@@ -37,5 +37,6 @@ export interface IMainMenuProps {
 export interface IQuizCardProps {
   quiz: IQuiz,
   StartQuiz: (id: number) => void,
-  EditQuiz: (id: number) => void
+  EditQuiz: (id: number) => void,
+  UpdateQuizzes: (newQuizzes: IQuiz[]) => void
 }

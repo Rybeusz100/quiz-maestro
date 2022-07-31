@@ -1,4 +1,5 @@
 import { IQuizCardProps } from "../lib/interfaces";
+import { DeleteQuiz } from "../lib/utils";
 
 function QuizCard(props: IQuizCardProps) {
   return (
@@ -8,7 +9,7 @@ function QuizCard(props: IQuizCardProps) {
       <button onClick={() => props.StartQuiz(props.quiz.id)}>Start quiz</button>
       <button onClick={() => props.EditQuiz(props.quiz.id)}>Edit</button>
       <button>Export</button>
-      <button>Delete</button>
+      <button onClick={() => props.UpdateQuizzes(DeleteQuiz(props.quiz.id))}>Delete</button>
     </div>
   )
 }

@@ -9,7 +9,8 @@ function MainMenu(props: IMainMenuProps) {
       <div className='quizzes-holder'>
         {props.quizzes.map && props.quizzes.map((quiz: IQuiz, index: number) => {
           return (
-            <QuizCard quiz={quiz} StartQuiz={props.StartQuiz} EditQuiz={props.EditQuiz} key={index} />
+            <QuizCard quiz={quiz} StartQuiz={props.StartQuiz} EditQuiz={props.EditQuiz} 
+              UpdateQuizzes={props.UpdateQuizzes} key={index} />
             )
         })}
       </div>

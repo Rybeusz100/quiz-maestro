@@ -43,23 +43,27 @@ export function GetRandomizedQuiz(quizzes: IQuiz[], id: number) {
 }
 
 export function AddQuiz(quiz: IQuiz) {
-  let quizzes: IQuiz[] = JSON.parse(localStorage.getItem('quizzes') || '{}');
+  let quizzes: IQuiz[] = JSON.parse(localStorage.getItem('quizzes') || '[]');
 
-  let index = -1;
-  if (quizzes.findIndex) {
-    index = quizzes.findIndex(q => q.id === quiz.id);
-  }
+  let index = quizzes.findIndex(q => q.id === quiz.id);
 
   if (index >= 0) {
     quizzes[index] = quiz;
   }
   else {
-    if (quizzes.push) {
-      quizzes.push(quiz);
-    }
-    else {
-      quizzes = [quiz];
-    }
+    quizzes.push(quiz);
+  }
+
+  return quizzes;
+}
+
+export function DeleteQuiz(id: number) {
+  let quizzes: IQuiz[] = JSON.parse(localStorage.getItem('quizzes') || '[]');
+
+  let index = quizzes.findIndex(q => q.id === id);
+
+  if (index >= 0) {
+    quizzes.splice(index, 1);
   }
 
   return quizzes;
