@@ -42,6 +42,7 @@ export interface IQuizCardProps {
 }
 
 export interface IFile {
+  type: string,
   name: string,
   content: string
 }

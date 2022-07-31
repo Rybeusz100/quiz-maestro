@@ -14,6 +14,7 @@ function MainMenu(props: IMainMenuProps) {
     reader.readAsText(file, 'UTF-8');
     reader.onload = e => {
       setCurrentFile({
+        type: file.type,
         name: file.name,
         content: e.target?.result?.toString()!
       });
@@ -26,7 +27,17 @@ function MainMenu(props: IMainMenuProps) {
 
   function GenerateQuiz() {
     if (currentFile === undefined || currentFile?.name === null || currentFile?.content === null) { return; }
-    const quiz = TextToQuiz(currentFile.name, currentFile.content);
+
+    let quiz: IQuiz = {id: '0', title: '', questions: []};
+    switch (currentFile.type) {
+      case 'text/plain':
+        quiz = TextToQuiz(currentFile.name, currentFile.content);
+        break;
+      case 'application/json':
+        quiz = JSON.parse(currentFile.content);
+        break;
+    }
+
     const newQuizzes = AddQuiz(quiz);
     props.UpdateQuizzes(newQuizzes);
   }
