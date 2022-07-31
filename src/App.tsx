@@ -8,14 +8,14 @@ import { IQuiz } from './lib/interfaces';
 function App() {
   const [quizzes, setQuizzes] = useState(JSON.parse(localStorage.getItem('quizzes') || '{}'));
   const [mode, setMode] = useState(Mode.MainMenu);
-  const [activeQuizId, setActiveQuizId] = useState(-1);
+  const [activeQuizId, setActiveQuizId] = useState('');
 
-  function StartQuiz(id: number) {
+  function StartQuiz(id: string) {
     setActiveQuizId(id);
     setMode(Mode.SolveQuiz);
   }
 
-  function EditQuiz(id: number) {
+  function EditQuiz(id: string) {
     setActiveQuizId(id);
     setMode(Mode.EditQuiz);
   }

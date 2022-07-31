@@ -1,4 +1,4 @@
-import { Mode, QuizMode } from "./enums"
+import { QuizMode } from "./enums"
 
 export interface IQuestion {
   questionText: string,
@@ -15,7 +15,7 @@ export interface IQuestionProps {
 }
 
 export interface IQuiz {
-  id: number,
+  id: string,
   title: string,
   questions: IQuestion[],
 };
@@ -29,14 +29,19 @@ export interface IQuizProps {
 
 export interface IMainMenuProps {
   quizzes: IQuiz[],
-  StartQuiz: (id: number) => void,
-  EditQuiz: (id: number) => void,
+  StartQuiz: (id: string) => void,
+  EditQuiz: (id: string) => void,
   UpdateQuizzes: (newQuizzes: IQuiz[]) => void
 }
 
 export interface IQuizCardProps {
   quiz: IQuiz,
-  StartQuiz: (id: number) => void,
-  EditQuiz: (id: number) => void,
+  StartQuiz: (id: string) => void,
+  EditQuiz: (id: string) => void,
   UpdateQuizzes: (newQuizzes: IQuiz[]) => void
+}
+
+export interface IFile {
+  name: string,
+  content: string
 }
