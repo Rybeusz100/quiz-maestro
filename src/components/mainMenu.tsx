@@ -44,6 +44,10 @@ function MainMenu(props: IMainMenuProps) {
 
   return (
     <>
+      <div className='topnav'>
+        <input type='file' accept='.txt, .json' onChange={OnFileUpload}></input>
+        <button onClick={GenerateQuiz}>Generate Quiz</button>
+      </div>
       <div className='quizzes-holder'>
         {props.quizzes.map && props.quizzes.map((quiz: IQuiz, index: number) => {
           return (
@@ -52,8 +56,6 @@ function MainMenu(props: IMainMenuProps) {
             )
         })}
       </div>
-      <input type='file' accept='.txt, .json' onChange={OnFileUpload}></input>
-      <button onClick={GenerateQuiz}>Generate Quiz</button>
     </>
   )
 }

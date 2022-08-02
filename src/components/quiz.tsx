@@ -85,6 +85,9 @@ function Quiz(props: IQuizProps) {
     <>
       {mode === QuizMode.Solve && 
       <>
+        <div className='topnav'>
+          <button onClick={props.GoToMenu}>Main Menu</button>
+        </div>
         <div className='quiz-container'>
           <h2>{props.quiz.title}</h2>
           <h5>Question {currentQuestionIndex + 1} of {props.quiz.questions.length}</h5>
@@ -92,19 +95,24 @@ function Quiz(props: IQuizProps) {
             UpdateAnswers={UpdateAnswers} key={currentQuestionIndex} />
           <button onClick={GoToNextQuestion}>Next</button>
         </div>
-        <button onClick={props.GoToMenu}>Main Menu</button>
       </>}
       {mode === QuizMode.Summary && 
       <>
+        <div className='topnav'>
+          <button onClick={props.GoToMenu}>Main Menu</button>
+          <button onClick={ReviewAnswers}>Review answers</button>
+        </div>
         <div className='result-container'>
           <h2>Score:</h2>
           <h3>{totalScore.toFixed(2)} / {props.quiz.questions.length} - {(totalScore / props.quiz.questions.length * 100).toFixed(2)}%</h3>
-          <button onClick={props.GoToMenu}>Main Menu</button>
-          <button onClick={ReviewAnswers}>Review answers</button>
         </div>
       </>}
       {mode === QuizMode.Review && 
       <>
+        <div className='topnav'>
+          <button onClick={props.GoToMenu}>Main Menu</button>
+          <button onClick={BackToResults}>Back to results</button>
+        </div>
         {props.quiz.questions.map((question, index) => {
           return (
               <div className='quiz-container' key={index}>
@@ -115,11 +123,13 @@ function Quiz(props: IQuizProps) {
               </div>
           )
         })}
-        <button onClick={props.GoToMenu}>Main Menu</button>
-        <button onClick={BackToResults}>Back to results</button>
       </>}
       {mode === QuizMode.Edit &&
       <>
+        <div className='topnav'>
+          <button onClick={props.GoToMenu}>Main Menu</button>
+          <button onClick={UpdateQuiz}>Save</button>
+        </div>
         {props.quiz.questions.map((question, index) => {
           return (
               <div className='quiz-container' key={index}>
@@ -129,8 +139,6 @@ function Quiz(props: IQuizProps) {
               </div>
           )
         })}
-        <button onClick={props.GoToMenu}>Main Menu</button>
-        <button onClick={UpdateQuiz}>Save</button>
       </>}
     </>
   )
