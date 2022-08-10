@@ -45,7 +45,8 @@ function MainMenu(props: IMainMenuProps) {
   return (
     <>
       <div className='topnav'>
-        <input type='file' accept='.txt, .json' onChange={OnFileUpload}></input>
+        <input type='file' accept='.txt, .json' onChange={OnFileUpload} id='inputFile'></input>
+        <button onClick={() => document.getElementById('inputFile')?.click()}>{currentFile?.name || 'Select file'}</button>
         <button onClick={GenerateQuiz}>Generate Quiz</button>
       </div>
       <div className='quizzes-holder'>
