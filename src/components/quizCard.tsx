@@ -5,7 +5,7 @@ import { saveAs } from 'file-saver';
 function QuizCard(props: IQuizCardProps) {
 
   function ExportQuiz() {
-    const json = JSON.stringify(props.quiz);
+    const json = JSON.stringify(props.quiz, null, 2);
     const blob = new Blob([json],
       { type: 'application/json' });
     saveAs(blob, props.quiz.title + '.json');
