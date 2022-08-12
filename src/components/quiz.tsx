@@ -85,12 +85,12 @@ function Quiz(props: IQuizProps) {
     <>
       {mode === QuizMode.Solve && 
       <>
-        <div className='topnav'>
+        <div className='top-nav'>
           <button onClick={props.GoToMenu}>Main Menu</button>
         </div>
         <div className='quiz-container'>
-          <h2>{props.quiz.title}</h2>
-          <h5>Question {currentQuestionIndex + 1} of {props.quiz.questions.length}</h5>
+          <span className='large-text'>{props.quiz.title}</span>
+          <span className='small-text'>Question {currentQuestionIndex + 1} of {props.quiz.questions.length}</span>
           <Question question={props.quiz.questions[currentQuestionIndex]} questionIndex={currentQuestionIndex} reviewMode={false} 
             UpdateAnswers={UpdateAnswers} key={currentQuestionIndex} />
           <button onClick={GoToNextQuestion}>Next</button>
@@ -98,26 +98,26 @@ function Quiz(props: IQuizProps) {
       </>}
       {mode === QuizMode.Summary && 
       <>
-        <div className='topnav'>
+        <div className='top-nav'>
           <button onClick={props.GoToMenu}>Main Menu</button>
           <button onClick={ReviewAnswers}>Review answers</button>
         </div>
-        <div className='result-container'>
-          <h2>Score:</h2>
-          <h3>{totalScore.toFixed(2)} / {props.quiz.questions.length} - {(totalScore / props.quiz.questions.length * 100).toFixed(2)}%</h3>
+        <div className='quiz-container'>
+          <span className='large-text'>Score:</span>
+          <span className='medium-text'  id='summary'>{totalScore.toFixed(2)} / {props.quiz.questions.length} - {(totalScore / props.quiz.questions.length * 100).toFixed(2)}%</span>
         </div>
       </>}
       {mode === QuizMode.Review && 
       <>
-        <div className='topnav'>
+        <div className='top-nav'>
           <button onClick={props.GoToMenu}>Main Menu</button>
           <button onClick={BackToResults}>Back to results</button>
         </div>
         {props.quiz.questions.map((question, index) => {
           return (
               <div className='quiz-container' key={index}>
-                <h5>Question {index + 1} of {props.quiz.questions.length}</h5>
-                <h5>Scored {score[index]} / 1</h5>
+                <span className='large-text'>Question {index + 1} of {props.quiz.questions.length}</span>
+                <span className='small-text' id='review'>Scored {score[index]} / 1</span>
                 <Question question={question} questionIndex={index} reviewMode={true} 
                   UpdateAnswers={() => void 0} checkedAnswers={answers[index]} key={index} />
               </div>
@@ -126,14 +126,14 @@ function Quiz(props: IQuizProps) {
       </>}
       {mode === QuizMode.Edit &&
       <>
-        <div className='topnav'>
+        <div className='top-nav'>
           <button onClick={props.GoToMenu}>Main Menu</button>
           <button onClick={UpdateQuiz}>Save</button>
         </div>
         {props.quiz.questions.map((question, index) => {
           return (
               <div className='quiz-container' key={index}>
-                <h5>Question {index + 1} of {props.quiz.questions.length}</h5>
+                <span className='large-text'>Question {index + 1} of {props.quiz.questions.length}</span>
                 <Question question={question} questionIndex={index} reviewMode={false} 
                   UpdateAnswers={UpdateAnswers} checkedAnswers={question.isCorrect} key={index} />
               </div>

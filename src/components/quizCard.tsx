@@ -13,12 +13,14 @@ function QuizCard(props: IQuizCardProps) {
 
   return (
     <div className='quiz-card'>
-      <h3>{props.quiz.title}</h3>
-      <span>Questions: {props.quiz.questions.length}</span>
-      <button onClick={() => props.StartQuiz(props.quiz.id)}>Start quiz</button>
-      <button onClick={() => props.EditQuiz(props.quiz.id)}>Edit</button>
-      <button onClick={ExportQuiz}>Export</button>
-      <button onClick={() => props.UpdateQuizzes(DeleteQuiz(props.quiz.id))}>Delete</button>
+      <span className='large-text'>{props.quiz.title}</span>
+      <span className='medium-text'>Questions: {props.quiz.questions.length}</span>
+      <div className='quiz-card-nav'>
+        <button onClick={() => props.StartQuiz(props.quiz.id)}>Start Quiz</button>
+        <button onClick={() => props.EditQuiz(props.quiz.id)}>Edit</button>
+        <button onClick={ExportQuiz}>Export</button>
+        <button className='delete' onClick={() => props.UpdateQuizzes(DeleteQuiz(props.quiz.id))}>Delete</button>
+      </div>
     </div>
   )
 }

@@ -44,12 +44,12 @@ function MainMenu(props: IMainMenuProps) {
 
   return (
     <>
-      <div className='topnav'>
-        <input type='file' accept='.txt, .json' onChange={OnFileUpload} id='inputFile'></input>
-        <button onClick={() => document.getElementById('inputFile')?.click()}>{currentFile?.name || 'Select file'}</button>
+      <div className='top-nav'>
+        <input type='file' accept='.txt, .json' onChange={OnFileUpload} id='input-file'></input>
+        <button onClick={() => document.getElementById('input-file')?.click()}>{currentFile?.name || 'Select file'}</button>
         <button onClick={GenerateQuiz}>Generate Quiz</button>
       </div>
-      <div className='quizzes-holder'>
+      <div className='quiz-list'>
         {props.quizzes.map && props.quizzes.map((quiz: IQuiz, index: number) => {
           return (
             <QuizCard quiz={quiz} StartQuiz={props.StartQuiz} EditQuiz={props.EditQuiz} 
