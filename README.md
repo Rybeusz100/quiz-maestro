@@ -3,7 +3,7 @@
 ## Table of contents
 * [General info](#general-info)
 * [Technologies](#technologies)
-* [Setup](#setup)
+* [Setup](#dev-setup)
 ## General info
 This project is a quiz application created to ease the process of studying. You can conveniently check it out [here](https://rybeusz100.github.io/quiz-maestro/). Upload your own quiz in a *.txt* or *.json* format and specify correct answers in the **Edit** bookmark to start. The *.txt* file should have the following format:
 ```
