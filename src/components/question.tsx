@@ -19,7 +19,7 @@ function Question(props: IQuestionProps) {
 
   return (
     <>
-      <h3>{props.question.questionText}</h3>
+      <span className='medium-text'>{props.question.questionText}</span>
       {props.question.answers.map((answer, index) => {
         const id = 'q' + props.questionIndex.toString() + 'answer' + index.toString();
         let colorClass = '';
@@ -36,11 +36,11 @@ function Question(props: IQuestionProps) {
           }
         }
         return (
-          <p key={index} className={colorClass}>
+          <span key={index} className={`${colorClass} answer`}>
             <input type='checkbox' id={id} onChange={() => HandleCheckbox(index)} 
               checked={checkedAnswers[index]} />
-            <label htmlFor={id}>{answer}</label>
-          </p>
+            <label className='small-text' htmlFor={id}>{answer}</label>
+          </span>
         )
       })}
     </>
