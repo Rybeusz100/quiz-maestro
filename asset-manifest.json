@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/quiz-maestro/static/css/main.f1bb7924.css",
-    "main.js": "/quiz-maestro/static/js/main.49ab26a0.js",
+    "main.css": "/quiz-maestro/static/css/main.f52d805e.css",
+    "main.js": "/quiz-maestro/static/js/main.8fa13035.js",
     "index.html": "/quiz-maestro/index.html",
-    "main.f1bb7924.css.map": "/quiz-maestro/static/css/main.f1bb7924.css.map",
-    "main.49ab26a0.js.map": "/quiz-maestro/static/js/main.49ab26a0.js.map"
+    "main.f52d805e.css.map": "/quiz-maestro/static/css/main.f52d805e.css.map",
+    "main.8fa13035.js.map": "/quiz-maestro/static/js/main.8fa13035.js.map"
   },
   "entrypoints": [
-    "static/css/main.f1bb7924.css",
-    "static/js/main.49ab26a0.js"
+    "static/css/main.f52d805e.css",
+    "static/js/main.8fa13035.js"
   ]
 }
