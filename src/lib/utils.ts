@@ -71,14 +71,15 @@ export function DeleteQuiz(id: string) {
 }
 
 export function TextToQuiz(fileName: string, text: string): IQuiz {
-  const questions: IQuestion[] = text.split(/\r?\n\r?\n/).map(q => {
-    let elements = q.split(/\r?\n/);
+  const questions: IQuestion[] = text.replace(/\r\n/g, '\n').split(/\n{2,}/).map(q => {
+    let elements = q.trim().split(/\r?\n/);
     const questionText = elements.shift() || "";
+    const isCorrect = elements.pop()?.split(' ').map(ans => ans === '1') || Array(elements.length).fill(false);
 
     return {
       questionText: questionText,
       answers: elements,
-      isCorrect: Array(elements.length).fill(false)
+      isCorrect: isCorrect
     }
   });
 
